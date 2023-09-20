@@ -62,4 +62,11 @@ public interface ObtainOrderMapper {
 
 	List<ObtainDTO> SearchCompanyList(Map<String, Object> map);
 
+	List<ObtainDTO> SearchManagerList(Map<String, Object> map);
+
+	List<ObtainDTO> SearchProductList(Map<String, Object> map);
+	
+	int InsertObtain(ObtainDTO dto);
+
+
 }

@@ -35,7 +35,7 @@
 		<result column="recipe_num" property="recipeNum" />
 
 		<result column="m_name" property="mName" />
-		<result column="m_connect" property="mConnect" />
+		<result column="m_contact" property="mContact" />
 		<result column="m_mail" property="mMail" />
 
 	</resultMap>
@@ -53,9 +53,11 @@
 		from SELL s
 		, PRODUCT p
 		where p.p_num = s.p_num(+)
-		and s.date_start_ship between #{startDate} and #{endDate}
+		and s.date_start_ship between
+		#{startDate} and #{endDate}
 		and
-		s.date_to_arrive between #{startDate1} and #{endDate1}
+		s.date_to_arrive between #{startDate1}
+		and #{endDate1}
 		and ${kind} like '%' || #{search} || '%'
 	</select>
 	<select id="SearchObtain" parameterType="Map" resultMap="sell">
@@ -63,43 +65,70 @@
 		s.s_num, s.c_num, p.p_name, s.date_order, s.date_start_ship,
 		s.date_to_arrive, s.s_phase, s.s_amount
 		from PRODUCT p, SELL s
-		where p.p_num = s.p_num
+		where
+		p.p_num = s.p_num
 		and ${kind} like '%' || #{search} || '%'
 	</select>
 	<select id="countAllObtainOrder" parameterType="Map"
 		resultType="int">
 		select count(*) from PRODUCT p, SELL s
-		where p.p_num = s.p_num
+		where p.p_num =
+		s.p_num
 	</select>
 	<select id="countAllObtainOrder1" parameterType="Map"
 		resultType="int">
 		select count(*) from PRODUCT p, SELL s
-		where p.p_num = s.p_num and s_phase = 0
+		where p.p_num =
+		s.p_num and s_phase = 0
 	</select>
 	<select id="countAllObtainOrder2" parameterType="Map"
 		resultType="int">
 		select count(*) from PRODUCT p, SELL s
-		where p.p_num = s.p_num and s_phase = 1
+		where p.p_num =
+		s.p_num and s_phase = 1
 	</select>
 	<select id="countAllObtainOrder3" parameterType="Map"
 		resultType="int">
 		select count(*) from PRODUCT p, SELL s
-		where p.p_num = s.p_num and s_phase = 2
+		where p.p_num =
+		s.p_num and s_phase = 2
 	</select>
 	<select id="countAllObtainOrder4" parameterType="Map"
 		resultType="int">
 		select count(*) from PRODUCT p, SELL s
-		where p.p_num = s.p_num and s_phase = 3
+		where p.p_num =
+		s.p_num and s_phase = 3
 	</select>
 	<select id="countAllObtainOrder5" parameterType="Map"
 		resultType="int">
 		select count(*) from PRODUCT p, SELL s
-		where p.p_num = s.p_num and s_phase = 4
+		where p.p_num =
+		s.p_num and s_phase = 4
 	</select>
 	<!-- 수주등록*수정 컴퍼니리스트 -->
-	<select id="SearchCompanyList" parameterType="string" resultMap="sell">
-		SELECT * from COMPANY_SELL where c_num like '%' || #{cNum} || '%'
+	<select id="SearchCompanyList" parameterType="string"
+		resultMap="sell">
+		SELECT * from COMPANY_SELL where c_num like '%' || #{cNum}
+		|| '%'
 	</select>
+	<!-- 수주등록*수정 매니저리스트 -->
+	<select id="SearchManagerList" parameterType="string"
+		resultMap="sell">
+		select * from MANAGER where m_name like '%' || #{mName} ||
+		'%'
+	</select>
+	<!-- 수주등록*수정 제품리스트 -->
+	<select id="SearchProductList" parameterType="string"
+		resultMap="sell">
+		select * from PRODUCT where p_num like '%' || #{pNum} || '%'
+	</select>
+	<insert id="InsertObtain" parameterType="sell">
+		insert into SELL (s_num,
+		s_phase, s_amount, c_num, price, p_num, date_order, date_start_ship,
+		date_to_arrive)
+		values(#{sNum}, #{sPhase}, #{sAmount}, #{cNum},
+		#{price}, #{pNum}, #{dateOrder}, #{dateStartShip}, #{dateToArrive})
+	</insert>
 
 	<!-- 제품 -->
 	<select id="ProductionAllList" resultMap="sell">
@@ -108,7 +137,8 @@
 	<select id="SearchProduction" parameterType="Map"
 		resultMap="sell">
 		select * from PRODUCT p
-		where ${kind} like '%' || #{search}|| '%'
+		where ${kind} like '%' || #{search}||
+		'%'
 	</select>
 	<select id="countAllOrderProduct" parameterType="Map"
 		resultType="int">
@@ -127,8 +157,10 @@
 		insert into PRODUCT
 		(P_NUM, P_NAME, UNIT, P_SIZE, P_AMOUNT, boxcount, WEIGHT, WEIGHT_1,
 		P_PRICE, DATE_FINISH, RECIPE_NUM)
-		values(#{pNum}, #{pName}, #{unit}, #{pSize}, #{pAmount}, #{boxCount}, #{pWeight},
-		#{pWeight_1}, #{pPrice}, #{pFinish}, #{recipeNum})
+		values(#{pNum}, #{pName}, #{unit},
+		#{pSize}, #{pAmount}, #{boxCount}, #{pWeight},
+		#{pWeight_1}, #{pPrice},
+		#{pFinish}, #{recipeNum})
 	</insert>
 
 	<select id="ModiWriteProduction" parameterType="String"
@@ -136,11 +168,15 @@
 		select * from PRODUCT p where p_num like #{pNum}
 	</select>
 	<update id="UpdateProduction" parameterType="sell">
-		update PRODUCT set p_name = #{pName}, unit = #{unit}, p_size = #{pSize},
-		p_amount = #{pAmount}, boxcount = #{boxCount},
-		weight = #{pWeight}, weight_1 = #{pWeight_1}, p_price = #{pPrice},
+		update PRODUCT set
+		p_name = #{pName}, unit = #{unit}, p_size = #{pSize},
+		p_amount =
+		#{pAmount}, boxcount = #{boxCount},
+		weight = #{pWeight}, weight_1 =
+		#{pWeight_1}, p_price = #{pPrice},
 		date_finish = #{pFinish},
-		recipe_num = #{recipeNum}
+		recipe_num
+		= #{recipeNum}
 		where p_num like #{pNum}
 	</update>
 

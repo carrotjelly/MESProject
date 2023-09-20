@@ -36,7 +36,7 @@ public class ObtainDTO {
 	private String recipeNum;
 	//manager
 	private String mName;
-	private String mConnect;
+	private String mContact;
 	private String mMail;
 
 	public ObtainDTO() {
@@ -46,7 +46,7 @@ public class ObtainDTO {
 			String dateStartShip, String dateToArrive, String barcode, String sName, String address, String cLeader,
 			String cTel, String cPhone, String cFax, String cMail, String pAmount, String pName, String pSize,
 			int boxCount, String pWeight, String pWeight_1, String unit, String pFinish, int pPrice, String recipeNum,
-			String mName, String mConnect, String mMail) {
+			String mName, String mContact, String mMail) {
 		super();
 		this.sNum = sNum;
 		this.sPhase = sPhase;
@@ -76,7 +76,7 @@ public class ObtainDTO {
 		this.pPrice = pPrice;
 		this.recipeNum = recipeNum;
 		this.mName = mName;
-		this.mConnect = mConnect;
+		this.mContact = mContact;
 		this.mMail = mMail;
 	}
 
@@ -304,12 +304,12 @@ public class ObtainDTO {
 		this.mName = mName;
 	}
 
-	public String getmConnect() {
-		return mConnect;
+	public String getmContact() {
+		return mContact;
 	}
 
-	public void setmConnect(String mConnect) {
-		this.mConnect = mConnect;
+	public void setmContact(String mContact) {
+		this.mContact = mContact;
 	}
 
 	public String getmMail() {
@@ -328,9 +328,10 @@ public class ObtainDTO {
 				+ address + ", cLeader=" + cLeader + ", cTel=" + cTel + ", cPhone=" + cPhone + ", cFax=" + cFax
 				+ ", cMail=" + cMail + ", pAmount=" + pAmount + ", pName=" + pName + ", pSize=" + pSize + ", boxCount="
 				+ boxCount + ", pWeight=" + pWeight + ", pWeight_1=" + pWeight_1 + ", unit=" + unit + ", pFinish="
-				+ pFinish + ", pPrice=" + pPrice + ", recipeNum=" + recipeNum + ", mName=" + mName + ", mConnect="
-				+ mConnect + ", mMail=" + mMail + "]";
+				+ pFinish + ", pPrice=" + pPrice + ", recipeNum=" + recipeNum + ", mName=" + mName + ", mContact="
+				+ mContact + ", mMail=" + mMail + "]";
 	}
 
+	
 	
 }

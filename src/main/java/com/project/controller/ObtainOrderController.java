@@ -69,6 +69,26 @@ public class ObtainOrderController {
 		System.out.println(list);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	@RequestMapping("/add/managerlist")
+	public ResponseEntity<List<ObtainDTO>> SearchManagerList(@RequestParam("mName") String mName){
+		System.out.println(mName);
+		List<ObtainDTO> list = obtainService.SearchManagerList(mName);
+		System.out.println(list);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	@RequestMapping("/add/productlist")
+	public ResponseEntity<List<ObtainDTO>> SearchProductList(@RequestParam("pNum") String pNum){
+		System.out.println(pNum);
+		List<ObtainDTO> list = obtainService.SearchProductList(pNum);
+		System.out.println(list);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/obtain/upload")
+	public String InsertObtain(ObtainDTO dto) {
+		int result = obtainService.InsertObtain(dto);
+		return "redirect:/ObtainOrderInfo";
+	}
 	
 
 	// 수주등록

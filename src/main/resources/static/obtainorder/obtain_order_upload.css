@@ -99,7 +99,14 @@ h2 {
 }
 
 .inputemail {
-	width: 120px;
+	width: 200px;
+	height: 24px;
+	flex-shrink: 0;
+	border: 1px solid #9A9595;
+	border-radius: 4px;
+}
+.inputaddress {
+	width: 300px;
 	height: 24px;
 	flex-shrink: 0;
 	border: 1px solid #9A9595;
@@ -275,7 +282,7 @@ input {
 }
 
 /*company 팝업*/
-.company_popup {
+.company_popup, .manager_popup, .product_popup{
 	display: none;
 	position: fixed;
 	top: 0;
@@ -286,7 +293,7 @@ input {
 	/* 배경 어둡게 처리 */
 }
 
-.company_popin {
+.company_popin, .manager_popin, .product_popin {
 	background-color: #fff;
 	width: 80%;
 	max-width: 1100px;
@@ -295,17 +302,17 @@ input {
 	border-radius: 5px;
 }
 
-#company_list {
+#company_list, #manager_list, #product_list {
 	border: 1px solid #242424;
 	border-collapse: collapse;
 }
 
-#company_list>thead>tr>th {
+#company_list>thead>tr>th, #manager_list>thead>tr>th, #product_list>thead>tr>th {
 	border: 1px solid #242424;
 	background-color: #fce6e6;
 	font-size: 15px;
 }
-#company_list>tbody>tr>td {
+#company_list>tbody>tr>td, #manager_list>tbody>tr>td, #product_list>tbody>tr>td {
 	border: 1px solid #242424;
 	text-align: center;
 	font-size: 15px;

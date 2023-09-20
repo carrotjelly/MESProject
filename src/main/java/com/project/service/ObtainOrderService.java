@@ -124,11 +124,28 @@ public class ObtainOrderService {
 	public int DeleteBusiness(List<String> cNum) {
 		return obtainmapper.DeleteBusiness(cNum);
 	}
-	//수주 서치
+	//고객업체 서치
 	public List<ObtainDTO> SearchCompanyList(String cNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cNum", cNum);
 		return obtainmapper.SearchCompanyList(map);
 	}
+	//담당자 서치
+	public List<ObtainDTO> SearchManagerList(String mName) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mName", mName);
+		return obtainmapper.SearchManagerList(map);
+	}
+	//제품서치
+	public List<ObtainDTO> SearchProductList(String pNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pNum", pNum);
+		return obtainmapper.SearchProductList(map);
+	}
+
+	public int InsertObtain(ObtainDTO dto) {
+		return obtainmapper.InsertObtain(dto);
+	}
+
 	
 }
