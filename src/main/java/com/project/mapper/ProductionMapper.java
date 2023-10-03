@@ -5,13 +5,16 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import com.project.dto.ProductionDTO;
 
 @Mapper
 public interface ProductionMapper {
 
-	List<ProductionDTO> selectAll();
+
+	
 	
 	List<ProductionDTO> selectProduction(Map<String, Object> map);
 
@@ -30,6 +33,9 @@ public interface ProductionMapper {
 	void productModify(ProductionDTO productionDTO);
 
 	void sellModify(ProductionDTO productionDTO);
+
+	ProductionDTO PMSearch(String pNum);
+
 
 	
 

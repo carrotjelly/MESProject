@@ -7,6 +7,50 @@
 <link rel="stylesheet" href="/production/global.css" />
 <th:block th:insert="/header/header.html"></th:block>
 </head>
+<script>
+	$(function(){
+		$("#production_search_btn").click(function(e){
+			event.preventDefault(); // 기본 동작 막음
+			let pNum = $("#production_text").val();
+			console.log("pNum :" +  typeof pNum);
+			// PMsearch가 비어 있는지 확인
+	        if (pNum.trim() === "") {
+	            alert("품목번호를 입력하세요.");
+	            return; // 검색할 값이 없으면 함수 종료
+	        }
+			$.ajax({
+				url: '/PMRegister/searchByPNum',
+				//data:{a:b} a는 컨트롤러와 동일해야함 b는 파라미터명
+				data: {pNum: pNum}, // 수정: 데이터를 객체 형태로 보냅니다.
+				type: 'post',
+				dataType: 'json',
+				success: function (response) {
+					console.log(PMsearch);
+					console.log(response);
+					if (response) {
+						// 서버에서 반환된 데이터를 사용하여 HTML 요소에 값을 설정합니다.
+					
+						$("#productName").val(response.productName);
+						$("#productionNum").val(response.productionNum);
+						$("#cNum").val(response.cNum);
+						$("#boxCount").val(response.boxCount);
+						$("#price").val(response.price);
+					
+					} else {
+						alert("존재하지 않는 품목번호입니다.");
+
+					}
+				},
+				error: function (xhr, status, error) {
+					console.log(error);
+					alert("품목번호로 조회가 가능합니다.");
+
+				}
+			});
+		});
+	});
+	
+</script>
 <body>
 	<div class="pmContainer">
 		<div class="top">
@@ -29,33 +73,33 @@
 		<form action="production/register/action" method="post">
 			<table class="Product_register">
 					<tr>						
-						<td>제품명</td>
-						<td colspan="3"><input type="text" name="productName"></td>
+						<td>픔목번호</td>
+						<td colspan="3"><input type="text" id="production_text" name="pNum"><button id="production_search_btn">조회</button></td>
 					</tr>
 					<tr>
-						<td>품목번호</td>
-						<td><input type="text" name="pNum"></td>
+						<td>제품명</td>
+						<td><input type="text" id="productName" name="productName"></td>
 						<td>지시번호</td>
-						<td><input type="text" name="productionNum"></td>
+						<td><input type="text" id="productionNum" name="productionNum"></td>
 					</tr>
 					<tr>
 						<td>고객업체</td>
-						<td><input type="text" name="cNum"></td>
+						<td><input type="text" id="cNum" name="cNum"></td>
 						<td>BOX생산수량</td>
-						<td><input type="text" name="boxCount"></td>
+						<td><input type="text" id="boxCount" name="boxCount"></td>
 					</tr>
 					<tr>
 						<td>생산등록일</td>
-						<td><input class="date1" type="date" name="dateRegister"></td>
+						<td><input class="date1" type="date" name="dateRegister" ></td>
 						
 						<td>생산종료일</td>
-						<td><input class="date1" type="date" name="dateFinish"></td>
+						<td><input class="date1" type="date" name="dateFinish" ></td>
 					</tr>
 					<tr>
 						<td>생산수량</td>
-						<td><input type="text" name="amount"></td>
+						<td><input type="number" name="amount" ></td>
 						<td>가격</td>
-						<td><input type="text" name="price"></td>
+						<td><input type="number" id="price" name="price"></td>
 					</tr>
 					<tr>
 						<td>생산상태</td>

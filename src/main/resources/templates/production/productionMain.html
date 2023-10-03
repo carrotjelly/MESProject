@@ -149,7 +149,7 @@
 	                    pContent += `<td>${result[i].amount}</td>`;
 	                    pContent += `<td>${result[i].price}</td>`;
 	                    pContent += `<td>${result[i].boxCount}</td>`;
-						pContent += `<td><button type="button">${getButtonText(result[i].phase)}</button></td>`;  
+						pContent += `<td>${getButtonText(result[i].phase)}</td>`;  
 						pContent += `<td><svg></svg></td>`;                                     	                 									
 	                    pContent += `</tr>`;
 	                    
@@ -307,7 +307,7 @@
                         dContent += `<td>${datetimes[i].amount}</td>`;
                         dContent += `<td>${datetimes[i].price}</td>`;
                         dContent += `<td>${datetimes[i].boxCount}</td>`;
-                        dContent += `<td><button type="button">${getButtonText(datetimes[i].phase)}</button></td>`;   
+                        dContent += `<td>${getButtonText(datetimes[i].phase)}`;   
                         dContent += `<td><svg></svg></td>`;
                         dContent += `</tr>`;
                         
@@ -393,7 +393,7 @@
                         dContent += `<td>${datetimes[i].amount}</td>`;
                         dContent += `<td>${datetimes[i].price}</td>`;
                         dContent += `<td>${datetimes[i].boxCount}</td>`;
-                        dContent += `<td><button type="button">${getButtonText(datetimes[i].phase)}</button></td>`;   
+                        dContent += `<td>${getButtonText(datetimes[i].phase)}</td>`;   
                         dContent += `<td><svg></svg></td>`;
                         dContent += `</tr>`;
                         
@@ -517,16 +517,16 @@
 							<th:block th:each="selectAll : ${select_list}">		
 								<tr class="content_tr">
 									<td><input type="checkbox" name="select" id="select"></td>		
-									<td>[[${selectAll.pNum}]]</td>	
-									<td>[[${selectAll.productionNum}]]</td>	
-									<td onclick="location.href='/PMModify'">[[${selectAll.productName}]]</td>	
-									<td>[[${selectAll.cNum}]]</td>	
-									<td>[[${selectAll.dateRegister}]]</td>	
-									<td>[[${selectAll.dateFinish}]]</td>	
-									<td>[[${selectAll.amount}]]</td>
-									<td>[[${selectAll.price}]]</td>
-									<td>[[${selectAll.boxCount}]]</td>
-									<td th:switch="${selectAll.phase}">
+									<td>[[${selectAll[1]}]]</td>	
+									<td>[[${selectAll[0]}]]</td>	
+									<td onclick="location.href='/PMModify'">[[${selectAll[2]}]]</td>	
+									<td>[[${selectAll[3]}]]</td>	
+									<td>[[${selectAll[4]}]]</td>	
+									<td>[[${selectAll[5]}]]</td>	
+									<td>[[${selectAll[6]}]]</td>
+									<td>[[${selectAll[7]}]]</td>
+									<td>[[${selectAll[8]}]]</td>
+									<td th:switch="${selectAll[9]}">
 									  <button type="button"id="btn_standBy" th:case="1">생산대기</button>
 									  <button type="button"id="btn_ing" th:case="2">생산중</button>
 									  <button type="button"id="btn_success" th:case="3">생산완료</button>			
@@ -537,7 +537,29 @@
 						
 						</tbody>
 				</table>
-			
+				<!-- Pagination -->
+		<div class="pagination">
+		    <ul>
+		        <!-- 이전 페이지 -->
+		        <li th:if="${pagingVO.isPreviousPageGroup()}">
+		            <a th:href="@{/PM(page=${pagingVO.getStartPageOfPageGroup() - 1})}" aria-label="Previous">
+		                <span aria-hidden="true">&laquo;</span>
+		            </a>
+		        </li>
+		
+		        <!-- 페이지 번호 -->
+		        <li th:each="pageNum : ${#numbers.sequence(pagingVO.getStartPageOfPageGroup(), pagingVO.getEndPageOfPageGroup())}">
+		            <a th:href="@{/PM(page=${pageNum})}" th:class="${pageNum == pagingVO.getCurrentPageNo()} ? 'active' : ''" th:text="${pageNum}"></a>
+		        </li>
+		
+		        <!-- 다음 페이지 -->
+		        <li th:if="${pagingVO.isNextPageGroup()}">
+		            <a th:href="@{/PM(page=${pagingVO.getEndPageOfPageGroup() + 1})}" aria-label="Next">
+		                <span aria-hidden="true">&raquo;</span>
+		            </a>
+		        </li>
+		    </ul>
+		</div>
 		
 		<div class="button-container">
 			<button type="button" class="delete_btn" id="delete_btn">삭제</button>
